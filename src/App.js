@@ -8,14 +8,16 @@ import NotFound from './pages/NotFound';
 export default class App extends React.Component {
   render() {
     return (
-      <BrowserRouter>
-        <Switch>
-          <Route exact path="/" component={ Home } />
-          <Route exact path="/countries" component={ Countries } />
-          <Route exact path="/details:id" component={ Details } />
-          <Route component={ NotFound } />
-        </Switch>
-      </BrowserRouter>
+      <div>
+        <BrowserRouter>
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route exact path="/countries" component={Countries} />
+            <Route exact path="/details/:id" component={Details} />
+            <Route component={NotFound} />
+          </Switch>
+        </BrowserRouter>
+      </div>
     )
   }
 }
