@@ -1,5 +1,4 @@
 
-
 const contriesLocations = results.map((data, i) => {
     return (
         <div
