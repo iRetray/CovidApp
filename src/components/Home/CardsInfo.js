@@ -1,12 +1,8 @@
 import React from 'react'
-import { Card, Statistic, Typography } from 'antd'
-import { ArrowUpOutlined, NotificationOutlined } from '@ant-design/icons'
+import { Card, Statistic } from 'antd'
+import {  NotificationOutlined } from '@ant-design/icons'
 
 export default class CardsInfo extends React.Component {
-
-    constructor(props) {
-        super(props)
-    }
 
     render() {
         return (

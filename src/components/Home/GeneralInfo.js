@@ -29,14 +29,17 @@ export default class GeneralInfo extends React.Component {
             .then(function (response) {
                 console.log("solicitud exitosa")
                 console.log(response);
+                this.setState({
+                    globalData: responseData.data,
+                    generalData: responseData.data.Global
+                })
+                console.log("Estado", this.state.globalData)
+                console.log(this.state.generalData)
+                console.log(this.generalData)
             })
-        this.setState({
-            globalData: responseData.data,
-            generalData: responseData.data.Global
-        })
-        console.log("Estado", this.state.globalData)
-        console.log(this.state.generalData)
-        console.log(this.generalData)
+            .catch(function (error) {
+                console.log(error);
+            })
     }
 
     render() {
@@ -73,10 +76,8 @@ export default class GeneralInfo extends React.Component {
                 </div>
                 <div style={{ padding: '10px', textAlign: 'right ' }}>
                     <Text type="secondary">Información actualizada a: </Text><Text strong>
-                        {
-                            Moment.locale("es"),
-                            Moment(this.state.globalData.Date).format("MMMM D YYYY, h:mm a")
-                        }
+                        {Moment.locale("es")}
+                        {Moment(this.state.globalData.Date).format("MMMM D YYYY, h:mm a")}
                     </Text>
                 </div>
             </div>
