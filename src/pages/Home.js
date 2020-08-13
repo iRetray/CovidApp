@@ -17,7 +17,7 @@ export default class Home extends React.Component {
                         </Row>
                     </Col>
                 </Row>
-                <div className="container-fluid" style={{ background: '#F0F2F5' }}>
+                <div className="container-fluid" style={{ background: '#F0F2F5', padding: '20px' }}>
                     <GeneralInfo />                    
                 </div>
             </div>

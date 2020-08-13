@@ -1,8 +1,30 @@
 import React from 'react'
 import { Space, Card, Statistic } from 'antd'
 import { ArrowUpOutlined } from '@ant-design/icons'
+import Axios from 'axios'
 
 export default class GeneralInfo extends React.Component {
+
+    constructor (props) {
+        super(props)
+        this.state = {
+            globalData: []
+        }
+        this.getDataGlobal = this.getDataGlobal.bind(this)
+    }
+
+    componentDidMount() {
+        this.getDataGlobal()        
+    }
+
+    async getDataGlobal() {
+        const responseData = await Axios.get("https://api.covid19api.com/summary")
+        this.setState({
+            globalData: responseData.data
+        })
+        console.log(this.state.globalData)
+    }
+
     render() {
         return (
             <div>
