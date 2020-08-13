@@ -10,7 +10,7 @@ export default class Details extends React.Component {
             <div>
                 <layout>
                     <Header className="header">
-                        <h1 className="title" id="desc">Pagina de detalles de:</h1> 
+                        <h1 className="title" id="desc">Pagina  de detalles de:</h1> 
                     </Header>
                 </layout>
             </div>
