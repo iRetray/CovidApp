@@ -1,6 +1,7 @@
 import React from 'react';
 import Map from '../components/Map/map.js';
 import credentials from '../components/Map/credentials.js';
+import Axios from 'axios';
 
 const mapURL = `https://maps.googleapis.com/maps/api/js?key=${credentials.mapsKey}`;
 
@@ -14,7 +15,7 @@ export default class Countries extends React.Component {
         this.state = {
             results: {},
         }
-        this.getDataGlobal = this.getDataGlobal.bind(this)
+        this.results = this.results.bind(this)
     }
 
     async getDataGlobal() {
@@ -26,28 +27,9 @@ export default class Countries extends React.Component {
                 console.log(error);
             })
         this.setState({
-            results: responseData.data,
-            
+            results: responseData.data
         })
-        const countriesLocations = results.map((data, i) => {
-            return (
-                <div
-                    /**lat = {data.} mirar dentro de la API como devuleve longitud y latitud para agregarlos 
-                    lng = {data.}*/
-                    style = {{
-                        color: "red",
-                        backgroundColor: "#FFF",
-                        height: "25px",
-                        widht: "35px",
-                        textAlign : "center"
-                        
-                }}
-                >
-                </div>
-            );
-        });
     }
-
 
     componentDidMount() {
         this.getDataGlobal()
