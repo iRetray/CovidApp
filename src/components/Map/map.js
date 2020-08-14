@@ -20,7 +20,9 @@ class Map extends React.Component {
           this.props.markersData.map((result, index) => {
             let longitud = result.countryInfo.long
             let latitud = result.countryInfo.lat
-            return (<Marker position={{ lat: latitud, lng: longitud }} key={index} />)
+            let nameCountry = result.country
+            let flag = result.countryInfo.flag
+            return (<Marker position={{ lat: latitud, lng: longitud }} key={index} defaultLabel={nameCountry} icon={flag} />)
           })
         }
       </GoogleMap>
