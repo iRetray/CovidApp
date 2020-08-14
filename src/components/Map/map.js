@@ -8,7 +8,7 @@ import {
     Marker
 } from  'react-google-maps';
 
-
+ 
 const Map = (props)=>{
     return (
         <GoogleMap
@@ -22,7 +22,7 @@ const Map = (props)=>{
         styles: styles // change default map styles
       }}
     >
-      {props.isMarkerShown && <Marker/>}
+      {<Marker position={{ lat: 0, lng: 0 }}/>}
     </GoogleMap>
     );
 };
@@ -32,3 +32,14 @@ export default withScriptjs(
         Map
     )
 )
+
+/*
+const MyMapComponent = withScriptjs(withGoogleMap((props) =>
+  <GoogleMap
+    defaultZoom={3}
+    defaultCenter={{ lat: 0, lng: 0 }}
+  >
+    {<Marker position={{ lat: 0, lng: 0 }} />}
+  </GoogleMap>
+))
+*/
