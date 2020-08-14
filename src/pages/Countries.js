@@ -15,11 +15,11 @@ export default class Countries extends React.Component {
         this.state = {
             results: {},
         }
-        this.results = this.results.bind(this)
+        this.getDataGlobal = this.getDataGlobal.bind(this)
     }
 
     async getDataGlobal() {
-        const responseData = await Axios.get("https://corona.lmao.ninja/countries")
+        const responseData = await Axios.get("https://corona.lmao.ninja/v3/covid-19/countries")
             .then(function (response) {
                 return response
             })
@@ -34,19 +34,32 @@ export default class Countries extends React.Component {
     componentDidMount() {
         this.getDataGlobal()
     }
-    
+
     render() {
-        return(
+        return (
             <div>
                 <Map
                     isMarkerShown
-                    googleMapURL = {mapURL}
+                    googleMapURL={mapURL}
                     loadingElement={<div style={{ height: `100%` }} />}
                     containerElement={<div style={{ height: `400px` }} />}
                     mapElement={<div style={{ height: `100%` }} />}
                 >
-                    {countriesLocations}
+                    <div>
+                        lat = {0} lng = {0} text="marcador"
+                    </div>
                 </Map>
+                {
+                    this.state.results.lenght!==0
+                        ? <div>Si hay datos
+                            {console.log(this.state.results)}
+                            {console.log(this.state.results[0].country)}
+                            {
+                                
+                            }
+                        </div>
+                        : <div>No hay datos</div>
+                }
             </div>
         )
     }
