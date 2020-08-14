@@ -1,6 +1,6 @@
 import React from 'react';
-import Map from '../components/Map/map.js';
-import credentials from '../components/Map/credentials.js';
+import Map from '../components/Map/Map.js';
+import credentials from '../components/Map/Credentials.js';
 import Axios from 'axios';
 import { Marker } from 'react-google-maps';
 
@@ -32,12 +32,12 @@ export default class Countries extends React.Component {
 
     displayMarkers = () => {
         return this.state.results.map((result, index) => {
-            console.log(result.countryInfo.lat,result.countryInfo.long,result.country)
+            console.log(result.countryInfo.lat, result.countryInfo.long, result.country)
             return <Marker key={index} id={index} position={{
                 lat: result.countryInfo.lat,
                 lng: result.countryInfo.long
-            }} 
-            onClick={() => console.log("click")} />
+            }}
+                onClick={() => console.log("click")} />
         })
     }
 
@@ -58,11 +58,11 @@ export default class Countries extends React.Component {
                     {this.displayMarkers()}
                 </Map>
                 {
-                    this.state.results.lenght!==0
+                    this.state.results.lenght !== 0
                         ? <div>Si hay datos
                             {console.log(this.state.results[0])}
-                            
-                            
+
+
                         </div>
                         : <div>No hay datos</div>
                 }
