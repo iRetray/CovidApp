@@ -19,7 +19,7 @@ export default class Home extends React.Component {
                 </Row>
                 <div className="container-fluid" style={{ background: '#F0F2F5', padding: '20px' }}>
                     <Divider><Title level={4}>Estadísticas globales</Title></Divider>
-                    <GeneralInfo />                    
+                    <GeneralInfo />
                 </div>
             </div>
         )
