@@ -8,38 +8,28 @@ import {
   Marker
 } from 'react-google-maps';
 
-
-const Map = (props) => {
-  return (
-    <GoogleMap
-      defaultZoom={3}
-      defaultCenter={{
-        lat: 0, // latitude for the center of the map
-        lng: 0 // longitude for the center of the map
-      }}
-      defaultOptions={{
-
-        styles: styles // change default map styles
-      }}
-    >
-      {<Marker position={{ lat: 0, lng: 0 }} />}
-    </GoogleMap>
-  );
-};
+class Map extends React.Component {
+  render() {
+    return (
+      <GoogleMap
+        defaultZoom={3}
+        defaultCenter={{ lat: 0, lng: 0 }}
+        defaultOptions={{ styles: styles }}
+      >
+        {
+          this.props.markersData.map((result, index) => {
+            let longitud = result.countryInfo.long
+            let latitud = result.countryInfo.lat
+            return (<Marker position={{ lat: latitud, lng: longitud }} key={index} />)
+          })
+        }
+      </GoogleMap>
+    )
+  }
+}
 
 export default withScriptjs(
   withGoogleMap(
     Map
   )
 )
-
-/*
-const MyMapComponent = withScriptjs(withGoogleMap((props) =>
-  <GoogleMap
-    defaultZoom={3}
-    defaultCenter={{ lat: 0, lng: 0 }}
-  >
-    {<Marker position={{ lat: 0, lng: 0 }} />}
-  </GoogleMap>
-))
-*/

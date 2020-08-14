@@ -2,10 +2,8 @@ import React from 'react';
 import Map from '../components/Map/Map.js';
 import credentials from '../components/Map/Credentials.js';
 import Axios from 'axios';
-import { Marker } from 'react-google-maps';
 
 const mapURL = `https://maps.googleapis.com/maps/api/js?key=${credentials.mapsKey}`;
-
 
 export default class Countries extends React.Component {
 
@@ -25,20 +23,11 @@ export default class Countries extends React.Component {
             .catch(function (error) {
                 console.log(error);
             })
-        this.setState({
-            results: responseData.data
-        })
-    }
-
-    displayMarkers = () => {
-        return this.state.results.map((result, index) => {
-            console.log(result.countryInfo.lat, result.countryInfo.long, result.country)
-            return <Marker key={index} id={index} position={{
-                lat: result.countryInfo.lat,
-                lng: result.countryInfo.long
-            }}
-                onClick={() => console.log("click")} />
-        })
+        if (responseData) {
+            this.setState({
+                results: responseData.data
+            })
+        }
     }
 
     componentDidMount() {
@@ -54,18 +43,9 @@ export default class Countries extends React.Component {
                     loadingElement={<div style={{ height: `100%` }} />}
                     containerElement={<div style={{ height: `400px` }} />}
                     mapElement={<div style={{ height: `100%` }} />}
+                    markersData={this.state.results}
                 >
-                    {this.displayMarkers()}
                 </Map>
-                {
-                    this.state.results.lenght !== 0
-                        ? <div>Si hay datos
-                            {console.log(this.state.results[0])}
-
-
-                        </div>
-                        : <div>No hay datos</div>
-                }
             </div>
         )
     }
