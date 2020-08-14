@@ -22,7 +22,7 @@ const Map = (props)=>{
         styles: styles // change default map styles
       }}
     >
-      <Marker/>
+      {props.isMarkerShown && <Marker/>}
     </GoogleMap>
     );
 };
