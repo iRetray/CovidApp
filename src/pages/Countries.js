@@ -38,13 +38,13 @@ export default class Countries extends React.Component {
         return (
             <div>
                 <Map
-                    isMarkerShown
+                    isMarkerShown = {false}
                     googleMapURL={mapURL}
-                    loadingElement={<div style={{ height: `100%` }} />}
-                    containerElement={<div style={{ height: `400px` }} />}
+                    loadingElement={<div style={{ height: `90%` }} />}
+                    containerElement={<div style={{ height: `500px` }} />}
                     mapElement={<div style={{ height: `100%` }} />}
                     markersData={this.state.results}
-                >
+                > 
                 </Map>
             </div>
         )
