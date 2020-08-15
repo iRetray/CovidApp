@@ -30,32 +30,16 @@ export default class Details extends React.Component {
 componentDidMount() {
     this.getDataAPI()
     }
-    render() {
-        return (
+    render(){
+        return(
+            
             <div>
-                <Row justify="center">
-                <h2>Esta pagina muestra los datos del pais: {this.props.match.params.id}</h2>
-                </Row>
+            <Row justify="center">
+            <h2>Esta pagina muestra los datos del pais: {this.props.match.params.id}</h2>
+            </Row>
+            <h2>{ this.state.generalDataAPI.TotalRecovered}</h2>
             </div>
-            <div className="col-md" style={{ padding: '15px' }}>
-            <Badge.Ribbon text="Nuevos fallecidos" color="#f5222d" placement="start" >
-                <Card>
-                    {
-                        this.state.generalData.NewConfirmed
-                            ? <center>
-                                <Statistic
-                                value={this.state.generalData.NewDeaths}
-                                valueStyle={{ color: '#f5222d' }}
-                                prefix={<EyeInvisibleOutlined />}
-                                suffix="personas"
-                                style={{ marginTop: '15px' }}
-                            /></center>
-                            : <div> <LoadingSkeleton /> </div>
-                    }
-                </Card>
-            </Badge.Ribbon>
-        </div>
+            
         )
-        
     }
 }
