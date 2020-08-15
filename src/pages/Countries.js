@@ -1,9 +1,9 @@
 import React from 'react';
 import Map from '../components/Map/Map.js';
-import credentials from '../components/Map/Credentials.js';
+import credentials from '../components/Map/Credentials.js'; 
 import Axios from 'axios';
 
-const mapURL = `https://maps.googleapis.com/maps/api/js?key=${credentials.mapsKey}`;
+const mapURL = `https://maps.googleapis.com/maps/api/js?key=AIzaSyBDaeWicvigtP9xPv919E-RNoxfvC-Hqik`;
 
 export default class Countries extends React.Component {
 

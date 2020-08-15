@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './stylesOfMap'
+import PinMarker from './PinMarker'
 
 import {
   GoogleMap,
@@ -23,33 +24,16 @@ class Map extends React.Component {
             let latitud = result.countryInfo.lat
             let flag = result.countryInfo.flag
             let nameCountry = result.country
-            let info = result.countryInfo.cases
-            let showInfo = false
-            return (<Marker position={{ lat: latitud, lng: longitud }} 
-                            key={index} 
-                            icon={{url:flag, scaledSize: new window.google.maps.Size(35,25)}}
-                            onClick={() => 
-                              this.props.onClickableChanged(result)
-                            }
-                     >
-                     {showInfo &&(
-                       <InfoWindow onCloseClick={() => 
-                         this.props.onMarkerClose(result)
-                       }
-                       >
-                       {
-                        <div className="info-window" 
-                          style={{ backgroundColor: "#FFF", textAlign : "center"}}>
-                          <h4> {nameCountry} </h4>
-                          <p> {info} </p>
-                        </div>
-                       }
-                       </InfoWindow>
-                     )}
-                     </Marker>)
+            return (
+              <PinMarker
+                longitud={longitud}
+                latitud={latitud}
+                flag={flag}
+                nameCountry={nameCountry}
+              />
+            )
           })
         }
-        
       </GoogleMap>
     )
   }
