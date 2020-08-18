@@ -12,17 +12,15 @@ export default class PinMarker extends React.Component {
         this.state = {
             isOpen: false
         }
-        this.handleToggleOpen = this.handleToggleOpen.bind(this)
-        this.handleToggleClose = this.handleToggleOpen.bind(this)
     }
 
-    handleToggleOpen = (markerId) => {
+    handleToggleOpen = () => {
         this.setState({
             isOpen: true
         });
     }
 
-    handleToggleClose = (markerId) => {
+    handleToggleClose = () => {
         this.setState({
             isOpen: false
         });

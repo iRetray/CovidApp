@@ -5,9 +5,7 @@ import PinMarker from './PinMarker'
 import {
   GoogleMap,
   withScriptjs,
-  withGoogleMap,
-  Marker,
-  InfoWindow
+  withGoogleMap
 } from 'react-google-maps';
 
 class Map extends React.Component {
