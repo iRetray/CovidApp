@@ -1,5 +1,5 @@
 import React from 'react';
-import Map from '../components/Map/Map.js';
+import Map from '../components/Map/Map';
 import credentials from '../components/Map/Credentials.js'; 
 import Axios from 'axios';
 
@@ -40,8 +40,8 @@ export default class Countries extends React.Component {
                 <Map
                     isMarkerShown = {false}
                     googleMapURL={mapURL}
-                    loadingElement={<div style={{ height: `90%` }} />}
-                    containerElement={<div style={{ height: `500px` }} />}
+                    loadingElement={<div style={{ height: `100%` }} />}
+                    containerElement={<div style={{ height: `99vh` }} />}
                     mapElement={<div style={{ height: `100%` }} />}
                     markersData={this.state.results}
                 > 
