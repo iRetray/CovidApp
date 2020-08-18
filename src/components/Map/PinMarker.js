@@ -39,9 +39,7 @@ export default class PinMarker extends React.Component {
                         ? <InfoWindow
                             id={index}
                             onCloseClick={() => this.setState({ isOpen: false })}>
-                            <div key={index}>
-                                <h4>{nameCountry}</h4>
-                            </div>
+                            <h4>HOLA</h4>
                         </InfoWindow>
                         : <div></div>
                 }

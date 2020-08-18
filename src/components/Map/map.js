@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './stylesOfMap'
+import styles from './stylesOfMap2'
 import PinMarker from './PinMarker'
 
 import {
