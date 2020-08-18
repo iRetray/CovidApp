@@ -1,9 +1,14 @@
 import React from 'react'
-
+import { Link } from 'react-router-dom'
 import {
     Marker,
     InfoWindow
 } from 'react-google-maps';
+import { Typography, Button, Space } from 'antd'
+import { PlusSquareOutlined } from '@ant-design/icons'
+const { Text } = Typography
+
+
 
 export default class PinMarker extends React.Component {
 
@@ -39,7 +44,22 @@ export default class PinMarker extends React.Component {
                         ? <InfoWindow
                             id={index}
                             onCloseClick={() => this.setState({ isOpen: false })}>
-                            <h4>HOLA</h4>
+                            <div>
+                                <Space direction="vertical">
+                                    <center>
+                                        <Text>
+                                            {nameCountry}
+                                        </Text>
+                                        <hr></hr>
+                                        <Text strong>
+                                            <Link to={"/details/"+nameCountry} style={{ textDecoration: 'none' }}>
+                                                <PlusSquareOutlined /> Detalles
+                                                 </Link>
+                                        </Text>
+                                    </center>
+                                </Space>
+
+                            </div>
                         </InfoWindow>
                         : <div></div>
                 }
