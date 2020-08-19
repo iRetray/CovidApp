@@ -1,24 +1,23 @@
 import React from 'react'
-import { Navbar, NavbarBrand, Nav, NavItem, NavLink, NavbarText, Alert } from 'reactstrap';
+import { Navbar, NavbarBrand, Nav, NavbarText } from 'reactstrap'
+import { Typography } from 'antd'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faMapMarkedAlt, faShieldVirus } from '@fortawesome/free-solid-svg-icons'
+import '../noShowScroll.css'
+const { Text } = Typography
 
 export default class Interfaz extends React.Component {
     render() {
         return (
             <div>
-                <Alert color="primary">
-                    This is a primary alert — check it out!
-                </Alert>
-                <Navbar color="light" light expand="md">
-                    <NavbarBrand href="/">reactstrap</NavbarBrand>
+                <Navbar color="dark" light expand="md">
+                    <NavbarBrand><Text style={{ color: '#ffffff' }}><FontAwesomeIcon icon={faShieldVirus} /> CovidApp</Text></NavbarBrand>
                     <Nav className="mr-auto" navbar>
-                        <NavItem>
-                            <NavLink href="/components/">Components</NavLink>
-                        </NavItem>
-                        <NavItem>
-                            <NavLink href="https://github.com/reactstrap/reactstrap">GitHub</NavLink>
-                        </NavItem>
+                        
                     </Nav>
-                    <NavbarText>Simple Text</NavbarText>
+                    <center>
+                    <NavbarText><Text style={{ color: '#6c757d', fontSize: '15px' }} disabled><FontAwesomeIcon icon={faMapMarkedAlt} /> Mapa interactivo</Text></NavbarText>
+                    </center>
                 </Navbar>
             </div>
         )
