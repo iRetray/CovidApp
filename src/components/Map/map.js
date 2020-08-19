@@ -22,12 +22,14 @@ class Map extends React.Component {
             let latitud = result.countryInfo.lat
             let flag = result.countryInfo.flag
             let nameCountry = result.country
+            let cases = result.countryInfo.flag
             return (
               <PinMarker
                 longitud={longitud}
                 latitud={latitud}
                 flag={flag}
                 nameCountry={nameCountry}
+                cases={cases}
               />
             )
           })
@@ -42,8 +44,3 @@ export default withScriptjs(
     Map
   )
 )
-/**Video de referencia
- * https://www.youtube.com/watch?v=Pf7g32CwX_s
- * https://stackoverflow.com/questions/44729776/how-can-animation-be-added-to-markers-in-react-google-maps
- * pasar desde country en results un parametro showinfo en false
- */

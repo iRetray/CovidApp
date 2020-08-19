@@ -32,7 +32,7 @@ export default class PinMarker extends React.Component {
     }
 
     render() {
-        const { longitud, latitud, flag, nameCountry, index } = this.props
+        const { longitud, latitud, flag, nameCountry, index, cases } = this.props
         return (
             <Marker position={{ lat: latitud, lng: longitud }}
                 key={index}
@@ -49,7 +49,9 @@ export default class PinMarker extends React.Component {
                                     <center>
                                         <Text>
                                             {nameCountry}
-                                        </Text>
+                                            <br/>
+                                            {cases}                                            
+                                        </Text>                                        
                                         <hr></hr>
                                         <Text strong>
                                             <Link to={"/details/"+nameCountry} style={{ textDecoration: 'none' }}>
