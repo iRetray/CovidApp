@@ -3,7 +3,8 @@ import { Typography, Divider, Button, Badge } from 'antd'
 import { PlayCircleTwoTone } from '@ant-design/icons'
 import covidImage from '../../images/homeImage.jpg'
 import Axios from 'axios'
-const { Title, Paragraph, Text, Link } = Typography
+import { Link } from 'react-router-dom'
+const { Title, Paragraph, Text } = Typography
 
 export default class Introduction extends React.Component {
 
@@ -55,7 +56,9 @@ export default class Introduction extends React.Component {
                         </Paragraph>
                     </Typography>
                     <center>
-                        <Button type="primary"><PlayCircleTwoTone />Iniciar aplicación</Button>
+                        <Link to="/countries">
+                            <Button type="primary"><PlayCircleTwoTone />Iniciar aplicación</Button>
+                        </Link>
                     </center>
                 </div>
             </div >
