@@ -43,7 +43,7 @@ export default class PinMarker extends React.Component {
                         ? <InfoWindow
                             id={index}
                             onCloseClick={() => this.setState({ isOpen: false })}>
-                            <div>
+                            <div style={{padding: '0px 12px 12px 0px'}}>
                                 <center>
                                     <Space direction="vertical">
                                         <Text>
