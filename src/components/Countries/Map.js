@@ -9,11 +9,19 @@ import {
 } from 'react-google-maps';
 
 class Map extends React.Component {
+
   render() {
+    const { latitudUsuario, longitudUsuario } = this.props
+    
+      let zoom = 0
+      latitudUsuario!==0
+      ? zoom = 7
+      : zoom = 3
+    
     return (
       <GoogleMap
-        defaultZoom={3}
-        defaultCenter={{ lat: 0, lng: 0 }}
+        defaultZoom={ zoom }
+        defaultCenter={{ lat: latitudUsuario, lng: longitudUsuario }}
         defaultOptions={{ styles: styles }}
       >
         {
@@ -30,6 +38,7 @@ class Map extends React.Component {
                 flag={flag}
                 nameCountry={nameCountry}
                 cases={cases}
+                key={index}
               />
             )
           })

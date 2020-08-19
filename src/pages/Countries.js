@@ -12,37 +12,34 @@ export default class Countries extends React.Component {
         super(props)
         this.state = {
             results: [],
-            latitudUsuario: 0,
-            longitudUsuario: 0,
+            latitudUsuario: 0.0,
+            longitudUsuario: 0.0,
         }
         this.getDataGlobal = this.getDataGlobal.bind(this)
         this.getLocation = this.getLocation.bind(this)
-        this.getCordinates = this.getCordinates.bind(this)
     }
 
     /**
-     * Se creo una variable cases que se manda como props en map a pinMaker que debe mandar los casos actuales para el mapa
      * Pasar lo de countries a map con el fin de crear un constructor que tenga las variables latitud, longitud,
      * zoom, que tendran los valores defaults, si accepta localizacicon, deben cambiarse los valores por los
      * que arroje la pagina, y el zoom al 7, de lo contrario usar valores base
      * -------------------------------------------------------------------------------------
      */
 
+
     getLocation() {
         if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(this.getCordinates)
+            navigator.geolocation.getCurrentPosition( (position) => {
+                this.setState({
+                    latitudUsuario: position.coords.latitude,
+                    longitudUsuario: position.coords.longitude
+                })
+            })
         } else {
             alert("La geolocalizacion no esta habilitada en su navegador")
         }
     }
 
-    getCordinates(position) {
-        this.setState({
-            latitud: position.coords.latitude,
-            longitud: position.coords.longitude
-        })
-    }
-    
     async getDataGlobal() {
         const responseData = await Axios.get("https://corona.lmao.ninja/v3/covid-19/countries")
             .then(function (response) {
@@ -74,6 +71,8 @@ export default class Countries extends React.Component {
                     containerElement={<div style={{ height: `99vh` }} />}
                     mapElement={<div style={{ height: `100%` }} />}
                     markersData={this.state.results}
+                    latitudUsuario={this.state.latitudUsuario}
+                    longitudUsuario={this.state.longitudUsuario}
                 >
                 </Map>
             </div>
