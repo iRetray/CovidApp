@@ -4,8 +4,7 @@ import {
     Marker,
     InfoWindow
 } from 'react-google-maps';
-import { Typography, Space } from 'antd'
-import { PlusSquareOutlined } from '@ant-design/icons'
+import { Typography, Space, Button } from 'antd'
 const { Text } = Typography
 
 
@@ -36,7 +35,7 @@ export default class PinMarker extends React.Component {
         return (
             <Marker position={{ lat: latitud, lng: longitud }}
                 key={index}
-                icon={{ url: flag, scaledSize: new window.google.maps.Size(35, 25) }}
+                icon={{ url: flag, scaledSize: new window.google.maps.Size(25, 15) }}
                 onClick={() => this.handleToggleOpen()}
             >
                 {
@@ -45,21 +44,19 @@ export default class PinMarker extends React.Component {
                             id={index}
                             onCloseClick={() => this.setState({ isOpen: false })}>
                             <div>
-                                <Space direction="vertical">
-                                    <center>
+                                <center>
+                                    <Space direction="vertical">
                                         <Text>
                                             {nameCountry}
-                                            <br/>
-                                            {cases}                                            
-                                        </Text>                                        
-                                        <hr></hr>
-                                        <Text strong>
-                                            <Link to={"/details/"+nameCountry} style={{ textDecoration: 'none' }}>
-                                                <PlusSquareOutlined /> Detalles
-                                                 </Link>
                                         </Text>
-                                    </center>
-                                </Space>
+                                        <Text code>
+                                            {Number(cases).toLocaleString('en')} casos
+                                            </Text>
+                                        <Link to={"/details/" + nameCountry}>
+                                            <Button type="primary" size="small">Detalles</Button>
+                                        </Link>
+                                    </Space>
+                                </center>
 
                             </div>
                         </InfoWindow>

@@ -22,7 +22,7 @@ class Map extends React.Component {
             let latitud = result.countryInfo.lat
             let flag = result.countryInfo.flag
             let nameCountry = result.country
-            let cases = result.countryInfo.flag
+            let cases = result.cases
             return (
               <PinMarker
                 longitud={longitud}
