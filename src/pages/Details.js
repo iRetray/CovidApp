@@ -59,14 +59,6 @@ export default class Details extends React.Component {
         this.getDataAPI()
     }
     render() {
-        /*return (
-            <div>
-                <Row justify="center">
-                    <h2>Esta pagina muestra los datos del pais: {this.props.match.params.id}</h2>
-                </Row>
-                <h2>{this.state.generalDataAPI.NewConfirmed}</h2>
-            </div>
-        )*/
         return (
             <div>
                 <style>{"body { background-color:#d5e1df; }"}</style>
