@@ -4,7 +4,7 @@ import {
     Marker,
     InfoWindow
 } from 'react-google-maps';
-import { Typography, Button, Space } from 'antd'
+import { Typography, Space } from 'antd'
 import { PlusSquareOutlined } from '@ant-design/icons'
 const { Text } = Typography
 
