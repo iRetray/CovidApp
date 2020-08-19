@@ -1,45 +1,80 @@
 import React from 'react'
-import { Row} from 'antd'
+import { Row , Table}  from 'antd'
 import Axios from 'axios'
 import 'antd/dist/antd.css';
+const columns=[
+{
+    title:'Casos positivos',
+    dataIndex:'positivos',
+    key:'positivos'
+},
+{
+    title:'Recuperados',
+    dataIndex:'Recuperados',
+    key:'Recuperados'
+},
+{
+    title:'Fallecidos',
+    dataIndex:'Fallecidos',
+    key:'Fallecidos'
+}
+]
+const dataSource = [
+   {
+       key:"1",
+       positivos:"548",
+       Recuperados:"9",
+       Fallecidos:"89",
+   }
+  ];
 export default class Details extends React.Component {
-    constructor(props){
+
+    constructor(props) {
         super(props)
-        this.state={
+        this.state = {
             globalAPI: {},
             generalDataAPI: {}
         }
-        this.getDataAPI= this.getDataAPI.bind(this)
+        this.getDataAPI = this.getDataAPI.bind(this)
     }
-    async getDataAPI(){
-        const responseDataAPI=await Axios.get("https://api.covid19api.com/summary")
-        .then(function (response) {
-            return response
-        })
-        .catch(function (error) {
-            console.log(error);
-        })
-    if (responseDataAPI) {
-        this.setState({
-            globalAPI: responseDataAPI.data,
-            generalDataAPI: responseDataAPI.data.Global
-        })
-    }
-}
 
-componentDidMount() {
-    this.getDataAPI()
+    async getDataAPI() {
+        var url= "https://api.covid19api.com/summary"
+        const responseDataAPI = await Axios.get(url)
+            .then(function (response) {
+                return response
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
+        if (responseDataAPI) {
+            this.setState({
+                globalAPI: responseDataAPI.data,
+                generalDataAPI: responseDataAPI.data.Global
+            })
+        }
     }
-    render(){
-        return(
-            
+
+    componentDidMount() {
+        this.getDataAPI()
+    }
+    render() {
+        /*return (
             <div>
-            <Row justify="center">
-            <h2>Esta pagina muestra los datos del pais: {this.props.match.params.id}</h2>
-            </Row>
-            <h2>{ this.state.generalDataAPI.TotalRecovered}</h2>
+                <Row justify="center">
+                    <h2>Esta pagina muestra los datos del pais: {this.props.match.params.id}</h2>
+                </Row>
+                <h2>{this.state.generalDataAPI.NewConfirmed}</h2>
             </div>
-            
+        )*/
+        return (
+            <div>
+                <style>{"body { background-color:#d5e1df; }"}</style>
+                <Row justify="center">
+                <h2>Esta pagina muestra los datos del pais: {this.props.match.params.id}</h2>
+                </Row>
+                <Table dataSource={dataSource} columns={columns}></Table>
+            </div>
         )
     }
 }
