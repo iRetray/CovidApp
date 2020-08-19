@@ -67,9 +67,9 @@ export default class Countries extends React.Component {
                 <Map
                     isMarkerShown={false}
                     googleMapURL={mapURL}
-                    loadingElement={<div style={{ height: `100%` }} />}
-                    containerElement={<div style={{ height: `99vh` }} />}
-                    mapElement={<div style={{ height: `100%` }} />}
+                    loadingElement={<div style={{ height: `100vh` }} />}
+                    containerElement={<div style={{ height: `90vh` }} />}
+                    mapElement={<div style={{ height: `94.1vh` }} />}
                     markersData={this.state.results}
                     latitudUsuario={this.state.latitudUsuario}
                     longitudUsuario={this.state.longitudUsuario}
