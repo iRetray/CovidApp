@@ -19,6 +19,7 @@ export default class PinMarker extends React.Component {
             flagURL: ""
         }
         this.getFlag = this.getFlag.bind(this)
+        this.setISOandOpenDrawer = this.setISOandOpenDrawer.bind(this)
     }
 
     async getFlag() {
@@ -39,6 +40,7 @@ export default class PinMarker extends React.Component {
     }
 
     handleToggleOpen = () => {
+        this.props.setCurrentyCountry(this.props.flagISOcode)        
         this.setState({
             isOpen: true
         });
@@ -50,20 +52,19 @@ export default class PinMarker extends React.Component {
         });
     }
 
+    setISOandOpenDrawer() {
+        this.props.setCurrentyCountry(this.props.flagISOcode)
+        this.props.setDrawerOpen()
+    }
+
     componentDidMount() {
         this.getFlag()
     }
 
     render() {
         const { longitud, latitud, nameCountry, index, cases } = this.props
-        let flagURL = ""
         return (
             <div>
-                {
-                    this.props.flagURL !== ""
-                        ? flagURL = this.props.flagURL
-                        : flagURL = ""
-                }
                 < Marker position={{ lat: latitud, lng: longitud }}
                     key={index}
                     icon={{ url: this.state.flagURL, scaledSize: new window.google.maps.Size(35, 25) }}
@@ -83,9 +84,7 @@ export default class PinMarker extends React.Component {
                                             <Text code>
                                                 {Number(cases).toLocaleString('en')} casos
                                             </Text>
-                                            <Link to={"/details/" + nameCountry}>
-                                                <Button type="primary" size="small">Detalles</Button>
-                                            </Link>
+                                            <Button type="primary" size="small" onClick={this.setISOandOpenDrawer}>Detalles</Button>
                                         </Space>
                                     </center>
 

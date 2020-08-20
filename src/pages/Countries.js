@@ -15,9 +15,23 @@ export default class Countries extends React.Component {
             results: [],
             latitudUsuario: 0.0,
             longitudUsuario: 0.0,
+            ISOcodeCurrentyCountry: "",
+            drawerOpen: false
         }
         this.getDataGlobal = this.getDataGlobal.bind(this)
         this.getLocation = this.getLocation.bind(this)
+        this.setCurrentyCountry = this.setCurrentyCountry.bind(this)
+        this.getCurrentyCountry = this.getCurrentyCountry.bind(this)
+    }
+
+    setCurrentyCountry(iso2) {
+        this.setState({
+            ISOcodeCurrentyCountry: iso2
+        })
+    }
+
+    getCurrentyCountry() {
+        return this.state.ISOcodeCurrentyCountry
     }
 
     getLocation() {
@@ -48,6 +62,12 @@ export default class Countries extends React.Component {
         }
     }
 
+    setDrawerOpen = () => {
+        this.setState({
+            drawerOpen: true
+        })
+    }
+
     componentDidMount() {
         this.getDataGlobal()
         this.getLocation()
@@ -66,9 +86,11 @@ export default class Countries extends React.Component {
                     markersData={this.state.results}
                     latitudUsuario={this.state.latitudUsuario}
                     longitudUsuario={this.state.longitudUsuario}
+                    setCurrentyCountry={this.setCurrentyCountry}
+                    setDrawerOpen={this.setDrawerOpen}
                 >
                 </Map>
-                <DetallesPais />
+                <DetallesPais getCurrentyCountry={this.getCurrentyCountry} stateOfDrawer={this.state.drawerOpen}/>
             </div>
         )
     }

@@ -39,6 +39,8 @@ class Map extends React.Component {
                 nameCountry={nameCountry}
                 cases={cases}
                 key={index}
+                setCurrentyCountry={this.props.setCurrentyCountry}
+                setDrawerOpen={this.props.setDrawerOpen}
               />
             )
           })
