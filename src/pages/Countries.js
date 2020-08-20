@@ -2,6 +2,7 @@ import React from 'react';
 import Map from '../components/Countries/Map';
 import Axios from 'axios';
 import Interfaz from '../components/Countries/Interfaz';
+import DetallesPais from '../components/Details/DetallesPais'
 
 const keyAPI = "AIzaSyBDaeWicvigtP9xPv919E-RNoxfvC-Hqik";
 const mapURL = `https://maps.googleapis.com/maps/api/js?key=` + keyAPI;
@@ -18,14 +19,6 @@ export default class Countries extends React.Component {
         this.getDataGlobal = this.getDataGlobal.bind(this)
         this.getLocation = this.getLocation.bind(this)
     }
-
-    /**
-     * Pasar lo de countries a map con el fin de crear un constructor que tenga las variables latitud, longitud,
-     * zoom, que tendran los valores defaults, si accepta localizacicon, deben cambiarse los valores por los
-     * que arroje la pagina, y el zoom al 7, de lo contrario usar valores base
-     * -------------------------------------------------------------------------------------
-     */
-
 
     getLocation() {
         if (navigator.geolocation) {
@@ -75,6 +68,7 @@ export default class Countries extends React.Component {
                     longitudUsuario={this.state.longitudUsuario}
                 >
                 </Map>
+                <DetallesPais />
             </div>
         )
     }
