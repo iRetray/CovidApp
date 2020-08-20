@@ -28,14 +28,14 @@ class Map extends React.Component {
           this.props.markersData.map((result, index) => {
             let longitud = result.countryInfo.long
             let latitud = result.countryInfo.lat
-            let flag = result.countryInfo.flag
+            let flagISOcode = result.countryInfo.iso2
             let nameCountry = result.country
             let cases = result.cases
             return (
               <PinMarker
                 longitud={longitud}
                 latitud={latitud}
-                flag={flag}
+                flagISOcode={flagISOcode}
                 nameCountry={nameCountry}
                 cases={cases}
                 key={index}
