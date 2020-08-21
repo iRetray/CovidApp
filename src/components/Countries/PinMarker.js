@@ -1,5 +1,4 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 import {
     Marker,
     InfoWindow
@@ -7,8 +6,6 @@ import {
 import { Typography, Space, Button } from 'antd'
 import Axios from 'axios';
 const { Text } = Typography
-
-
 
 export default class PinMarker extends React.Component {
 
@@ -40,7 +37,6 @@ export default class PinMarker extends React.Component {
     }
 
     handleToggleOpen = () => {
-        this.props.setCurrentyCountry(this.props.flagISOcode)        
         this.setState({
             isOpen: true
         });
@@ -53,8 +49,7 @@ export default class PinMarker extends React.Component {
     }
 
     setISOandOpenDrawer() {
-        this.props.setCurrentyCountry(this.props.flagISOcode)
-        this.props.setDrawerOpen()
+        this.props.setDrawer(true)
     }
 
     componentDidMount() {

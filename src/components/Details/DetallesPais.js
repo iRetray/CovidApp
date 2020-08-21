@@ -9,8 +9,8 @@ export default class DetallesPais extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            isOpen: false,
-            ISO2: "",
+            isOpen: this.props.stateOfDrawer,
+            ISO2: this.props.ISO2,
             countryData: {},
             configTable: {}
         }
@@ -36,15 +36,11 @@ export default class DetallesPais extends React.Component {
     }
 
     setOpen() {
-        this.setState({
-            isOpen: true
-        })
+        this.props.setDrawer(true)
     }
 
     onClose() {
-        this.setState({
-            isOpen: false
-        })
+        this.props.setDrawer(false)
     }
 
     setData() {
@@ -97,14 +93,9 @@ export default class DetallesPais extends React.Component {
 
     componentDidMount() {
         this.setData()
-        this.setState({
-            ISO2: this.props.getCurrentyCountry
-        })
-        this.setOpen()
     }
 
     render() {
-
         return (
             <div>
                 <Button onClick={() => { this.setOpen() }}>Abrir drawer</Button>

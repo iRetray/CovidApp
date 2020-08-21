@@ -15,28 +15,30 @@ export default class Countries extends React.Component {
             results: [],
             latitudUsuario: 0.0,
             longitudUsuario: 0.0,
-            ISOcodeCurrentyCountry: "",
+            currentyISO: "COLOMBIA",
             drawerOpen: false
         }
         this.getDataGlobal = this.getDataGlobal.bind(this)
         this.getLocation = this.getLocation.bind(this)
         this.setCurrentyCountry = this.setCurrentyCountry.bind(this)
-        this.getCurrentyCountry = this.getCurrentyCountry.bind(this)
+        this.setDrawer = this.setDrawer.bind(this)
     }
 
     setCurrentyCountry(iso2) {
         this.setState({
-            ISOcodeCurrentyCountry: iso2
+            currentyISO: iso2
         })
     }
 
-    getCurrentyCountry() {
-        return this.state.ISOcodeCurrentyCountry
+    setDrawer = (state) => {
+        this.setState({
+            drawerOpen: state
+        })
     }
 
     getLocation() {
         if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition( (position) => {
+            navigator.geolocation.getCurrentPosition((position) => {
                 this.setState({
                     latitudUsuario: position.coords.latitude,
                     longitudUsuario: position.coords.longitude
@@ -62,12 +64,6 @@ export default class Countries extends React.Component {
         }
     }
 
-    setDrawerOpen = () => {
-        this.setState({
-            drawerOpen: true
-        })
-    }
-
     componentDidMount() {
         this.getDataGlobal()
         this.getLocation()
@@ -87,10 +83,10 @@ export default class Countries extends React.Component {
                     latitudUsuario={this.state.latitudUsuario}
                     longitudUsuario={this.state.longitudUsuario}
                     setCurrentyCountry={this.setCurrentyCountry}
-                    setDrawerOpen={this.setDrawerOpen}
+                    setDrawer={this.setDrawer}
                 >
                 </Map>
-                <DetallesPais getCurrentyCountry={this.getCurrentyCountry} stateOfDrawer={this.state.drawerOpen}/>
+                <DetallesPais ISO2={this.state.currentyISO} stateOfDrawer={this.state.drawerOpen} setDrawer={this.setDrawer}/>
             </div>
         )
     }

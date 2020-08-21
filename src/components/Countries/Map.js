@@ -40,7 +40,7 @@ class Map extends React.Component {
                 cases={cases}
                 key={index}
                 setCurrentyCountry={this.props.setCurrentyCountry}
-                setDrawerOpen={this.props.setDrawerOpen}
+                setDrawer={this.props.setDrawer}
               />
             )
           })
