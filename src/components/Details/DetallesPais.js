@@ -95,6 +95,16 @@ export default class DetallesPais extends React.Component {
         this.setData()
     }
 
+    componentWillReceiveProps(nextProps) {
+        if (nextProps !== this.props.isOpen) {
+            this.setState({
+                nombre: nextProps.name
+            }, function() {
+                console.log("en el modal isOpen esta en:"+this.state.isOpen)
+            })
+        }
+    }
+
     render() {
         return (
             <div>
