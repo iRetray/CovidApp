@@ -82,7 +82,6 @@ export default class PinMarker extends React.Component {
                                             <Button type="primary" size="small" onClick={this.setISOandOpenDrawer}>Detalles</Button>
                                         </Space>
                                     </center>
-
                                 </div>
                             </InfoWindow>
                             : <div></div>

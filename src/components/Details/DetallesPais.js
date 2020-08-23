@@ -1,5 +1,5 @@
 import React from 'react'
-import { Drawer, Button, Card } from 'antd'
+import { Drawer, Button, Card, Space } from 'antd'
 //import Moment from 'moment'
 import Axios from 'axios'
 import { Line } from '@ant-design/charts';
@@ -9,11 +9,13 @@ export default class DetallesPais extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            isOpen: this.props.stateOfDrawer,
-            ISO2: this.props.ISO2,
+            isOpen: false,
+            ISO2: "",
             countryData: {},
             configTable: {}
         }
+        this.handleClickOpen = this.handleClickOpen.bind(this)
+        this.handleClickClose = this.handleClickClose.bind(this)
         this.setOpen = this.setOpen.bind(this)
         this.onClose = this.onClose.bind(this)
         this.setData = this.setData.bind(this)
@@ -40,6 +42,14 @@ export default class DetallesPais extends React.Component {
     }
 
     onClose() {
+        this.props.setDrawer(false)
+    }
+
+    handleClickOpen() {
+        this.props.setDrawer(true)
+    }
+
+    handleClickClose() {
         this.props.setDrawer(false)
     }
 
@@ -93,14 +103,17 @@ export default class DetallesPais extends React.Component {
 
     componentDidMount() {
         this.setData()
+        this.setState({
+            isOpen: this.props.stateOfDrawer
+        })
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps !== this.props.isOpen) {
+        if (nextProps !== this.props.isOpen || nextProps !== this.props.ISO2) {
             this.setState({
-                nombre: nextProps.name
-            }, function() {
-                console.log("en el modal isOpen esta en:"+this.state.isOpen)
+                isOpen: nextProps.isOpen
+            }, function () {
+                console.log("en el modal isOpen esta en:" + this.state.isOpen)
             })
         }
     }
@@ -108,7 +121,11 @@ export default class DetallesPais extends React.Component {
     render() {
         return (
             <div>
-                <Button onClick={() => { this.setOpen() }}>Abrir drawer</Button>
+                <Space>
+                    <Button onClick={()=>{console.log("Estado de isOpen en el modal:"+ this.props.stateOfDrawer)}}>Estado de isOpen en el modal: {this.state.isOpen}</Button>
+                    <Button onClick={this.handleClickOpen}>Abrir drawer</Button>
+                    <Button onClick={this.handleClickClose}>Cerrar drawer</Button>
+                </Space>
                 <Drawer
                     width={window.innerWidth > 900 ? 740 : window.innerWidth - 100}
                     height={window.innerWidth > 900 ? "100%" : window.innerHeight - 150}
@@ -116,7 +133,7 @@ export default class DetallesPais extends React.Component {
                     title="Detalles del país"
                     closable={true}
                     onClose={this.onClose}
-                    visible={this.state.isOpen}
+                    visible={this.props.stateOfDrawer}
                     bodyStyle={{ background: '#8c8c8c' }}
                     footerStyle={{ textAlign: 'right' }}
                     footer={"Información actualizada a: "} //+ Moment(this.state.globalData.Date).format("MMMM D YYYY, h:mm a")}
