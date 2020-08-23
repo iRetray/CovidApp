@@ -50,6 +50,7 @@ export default class PinMarker extends React.Component {
 
     setISOandOpenDrawer() {
         this.props.setDrawer(true)
+        this.props.setCurrentyCountry(this.props.flagISOcode)
     }
 
     componentDidMount() {

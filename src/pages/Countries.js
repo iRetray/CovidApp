@@ -27,6 +27,9 @@ export default class Countries extends React.Component {
     setCurrentyCountry(iso2) {
         this.setState({
             currentyISO: iso2
+        }, function () {
+            console.log("alguien uso setCountry")
+            console.log("en countries iso2 esta en: " + this.state.currentyISO)
         })
     }
 
@@ -90,7 +93,7 @@ export default class Countries extends React.Component {
                     setDrawer={this.setDrawer}
                 >
                 </Map>
-                <DetallesPais stateOfDrawer={this.state.drawerOpen} setDrawer={this.setDrawer} />
+                <DetallesPais stateOfDrawer={this.state.drawerOpen} setDrawer={this.setDrawer} currentISO2={this.state.currentyISO}/>
             </div>
         )
     }

@@ -10,7 +10,7 @@ export default class DetallesPais extends React.Component {
         super(props)
         this.state = {
             isOpen: false,
-            ISO2: "",
+            ISO2: this.props.currentISO2,
             countryData: {},
             configTable: {}
         }
@@ -104,16 +104,21 @@ export default class DetallesPais extends React.Component {
     componentDidMount() {
         this.setData()
         this.setState({
-            isOpen: this.props.stateOfDrawer
+            isOpen: this.props.stateOfDrawer,
+            ISO2: this.props.currentISO2
         })
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps !== this.props.isOpen || nextProps !== this.props.ISO2) {
+        if (nextProps !== this.props.isOpen) {
             this.setState({
-                isOpen: nextProps.isOpen
-            }, function () {
-                console.log("en el modal isOpen esta en:" + this.state.isOpen)
+                isOpen: nextProps.isOpen,
+                ISO2: nextProps.ISO2
+            })
+        }
+        if (nextProps !== this.props.ISO2) {
+            this.setState({
+                ISO2: nextProps.ISO2
             })
         }
     }
@@ -122,7 +127,7 @@ export default class DetallesPais extends React.Component {
         return (
             <div>
                 <Space>
-                    <Button onClick={()=>{console.log("Estado de isOpen en el modal:"+ this.props.stateOfDrawer)}}>Estado de isOpen en el modal: {this.state.isOpen}</Button>
+                    <Button onClick={() => { console.log("Estado de isOpen en el modal:" + this.props.stateOfDrawer) }}>Estado de isOpen en el modal: {this.state.isOpen}</Button>
                     <Button onClick={this.handleClickOpen}>Abrir drawer</Button>
                     <Button onClick={this.handleClickClose}>Cerrar drawer</Button>
                 </Space>
@@ -139,7 +144,7 @@ export default class DetallesPais extends React.Component {
                     footer={"Información actualizada a: "} //+ Moment(this.state.globalData.Date).format("MMMM D YYYY, h:mm a")}
                 >
                     <div style={{ background: '#ffffff' }}>
-                        <p>hey! el iso2 que llego aqui es: {this.state.ISO2}</p>
+                        <p>hey! el iso2 que llego aqui es: {this.props.currentISO2}</p>
                         <Line {...this.state.configTable} />
                         <Line {...this.state.configTable} />
                     </div>
