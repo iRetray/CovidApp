@@ -1,8 +1,10 @@
 import React from 'react'
-import { Drawer, Button, Card, Space } from 'antd'
+import { Drawer, Button, Card, Space, Typography, Row, Col, Skeleton } from 'antd'
 //import Moment from 'moment'
 import Axios from 'axios'
-import { Line } from '@ant-design/charts';
+import { Line } from '@ant-design/charts'
+const { Title } = Typography
+
 
 export default class DetallesPais extends React.Component {
 
@@ -11,18 +13,18 @@ export default class DetallesPais extends React.Component {
         this.state = {
             isOpen: false,
             ISO2: this.props.currentISO2,
-            countryData: {},
-            configTable: {}
+            countryData: {}
         }
         this.handleClickOpen = this.handleClickOpen.bind(this)
         this.handleClickClose = this.handleClickClose.bind(this)
         this.setOpen = this.setOpen.bind(this)
         this.onClose = this.onClose.bind(this)
-        this.setData = this.setData.bind(this)
     }
 
     async getDataGlobal() {
-        const responseData = await Axios.get("https://api.covid19api.com/summary")
+        const petition = "https://corona.lmao.ninja/v3/covid-19/countries/" + this.props.currentISO2
+        console.log(petition)
+        const responseData = await Axios.get(petition)
             .then(function (response) {
                 return response
             })
@@ -31,8 +33,7 @@ export default class DetallesPais extends React.Component {
             })
         if (responseData) {
             this.setState({
-                globalData: responseData.data,
-                generalData: responseData.data.Global
+                countryData: responseData.data
             })
         }
     }
@@ -43,6 +44,7 @@ export default class DetallesPais extends React.Component {
 
     onClose() {
         this.props.setDrawer(false)
+        this.props.setCurrentyCountry("")
     }
 
     handleClickOpen() {
@@ -53,56 +55,7 @@ export default class DetallesPais extends React.Component {
         this.props.setDrawer(false)
     }
 
-    setData() {
-
-        const data = [
-            { year: '1991', value: 3 },
-            { year: '1992', value: 4 },
-            { year: '1993', value: 3.5 },
-            { year: '1994', value: 5 },
-            { year: '1995', value: 4.9 },
-            { year: '1996', value: 6 },
-            { year: '1997', value: 7 },
-            { year: '1998', value: 9 },
-            { year: '1999', value: 13 },
-            { year: '1991', value: 7 },
-            { year: '1992', value: 8 },
-            { year: '1993', value: 12 },
-            { year: '1994', value: 15 },
-            { year: '1995', value: 18 },
-            { year: '1996', value: 5 },
-            { year: '1997', value: 3 },
-            { year: '1998', value: 2 },
-            { year: '1999', value: 1 }
-        ];
-        const config = {
-            data,
-            title: {
-                visible: true,
-                text: 'TextOfTable',
-            },
-            xField: 'year',
-            yField: 'value',
-            point: {
-                visible: true,
-                size: 5,
-                shape: 'diamond',
-                style: {
-                    fill: 'white',
-                    stroke: '#2593fc',
-                    lineWidth: 2,
-                },
-            },
-        };
-
-
-        this.setState({
-            configTable: config
-        })
-    }
-
     componentDidMount() {
-        this.setData()
         this.setState({
             isOpen: this.props.stateOfDrawer,
             ISO2: this.props.currentISO2
@@ -123,19 +76,18 @@ export default class DetallesPais extends React.Component {
         }
     }
 
+    componentDidUpdate() {
+        setTimeout(() => this.getDataGlobal(), 2000)
+    }
+
     render() {
         return (
             <div>
-                <Space>
-                    <Button onClick={() => { console.log("Estado de isOpen en el modal:" + this.props.stateOfDrawer) }}>Estado de isOpen en el modal: {this.state.isOpen}</Button>
-                    <Button onClick={this.handleClickOpen}>Abrir drawer</Button>
-                    <Button onClick={this.handleClickClose}>Cerrar drawer</Button>
-                </Space>
                 <Drawer
                     width={window.innerWidth > 900 ? 740 : window.innerWidth - 100}
                     height={window.innerWidth > 900 ? "100%" : window.innerHeight - 150}
                     placement={window.innerWidth > 900 ? "right" : "bottom"}
-                    title="Detalles del país"
+                    title="Detalles de país"
                     closable={true}
                     onClose={this.onClose}
                     visible={this.props.stateOfDrawer}
@@ -143,10 +95,31 @@ export default class DetallesPais extends React.Component {
                     footerStyle={{ textAlign: 'right' }}
                     footer={"Información actualizada a: "} //+ Moment(this.state.globalData.Date).format("MMMM D YYYY, h:mm a")}
                 >
+                    <Row gutter={16}>
+                        <Col span={24}>
+                            <Card>
+                                <p>
+                                    {
+                                        this.state.countryData === null
+                                            ? <Skeleton avatar paragraph={{ rows: 4 }} />
+                                            : <Space>
+                                                <img src={this.state.countryData.flag} alt="" style={{ width: '35px' }} />
+                                                <Title level={1}>{this.state.countryData.country}</Title>
+                                            </Space>
+                                    }
+                                </p>
+                            </Card>
+                        </Col>
+                    </Row>
+
                     <div style={{ background: '#ffffff' }}>
-                        <p>hey! el iso2 que llego aqui es: {this.props.currentISO2}</p>
-                        <Line {...this.state.configTable} />
-                        <Line {...this.state.configTable} />
+                        <p>
+                            {
+                                this.state.countryData.country === null
+                                    ? <p>Loading data</p>
+                                    : <p>{this.state.countryData.country}</p>
+                            }
+                        </p>
                     </div>
                     <Card title="Card title" bordered={true} style={{ width: 300 }} hoverable>
                         <p>Card content</p>

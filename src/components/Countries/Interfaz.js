@@ -13,7 +13,7 @@ export default class Interfaz extends React.Component {
             <div>
                 <Navbar color="dark" light expand="md">
                     <Link to="/">
-                        <NavbarBrand><Text style={{ color: '#ffffff' }}><FontAwesomeIcon icon={faShieldVirus} /> CovidApp</Text></NavbarBrand>
+                        <Text style={{ color: '#ffffff', fontSize: '2opx' }}><FontAwesomeIcon icon={faShieldVirus} /> CovidApp</Text>
                     </Link>
                     <Nav className="mr-auto" navbar>
 

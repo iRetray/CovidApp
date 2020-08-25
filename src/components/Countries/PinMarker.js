@@ -22,17 +22,19 @@ export default class PinMarker extends React.Component {
     async getFlag() {
         const baseRequest = "https://restcountries.eu/rest/v2/alpha/"
         const ISOcode = this.props.flagISOcode
-        const responseFlag = await Axios.get(baseRequest + ISOcode)
-            .then(function (response) {
-                return response
-            })
-            .catch(function (error) {
-                console.log(error)
-            })
-        if (responseFlag) {
-            this.setState({
-                flagURL: responseFlag.data.flag
-            })
+        if (ISOcode !== null) {
+            const responseFlag = await Axios.get(baseRequest + ISOcode)
+                .then(function (response) {
+                    return response
+                })
+                .catch(function (error) {
+                    console.log(error)
+                })
+            if (responseFlag) {
+                this.setState({
+                    flagURL: responseFlag.data.flag
+                })
+            }
         }
     }
 

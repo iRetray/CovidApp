@@ -16,7 +16,7 @@ export default class Countries extends React.Component {
             latitudUsuario: 0.0,
             longitudUsuario: 0.0,
             currentyISO: "",
-            drawerOpen: true
+            drawerOpen: false
         }
         this.getDataGlobal = this.getDataGlobal.bind(this)
         this.getLocation = this.getLocation.bind(this)
@@ -93,7 +93,7 @@ export default class Countries extends React.Component {
                     setDrawer={this.setDrawer}
                 >
                 </Map>
-                <DetallesPais stateOfDrawer={this.state.drawerOpen} setDrawer={this.setDrawer} currentISO2={this.state.currentyISO}/>
+                <DetallesPais stateOfDrawer={this.state.drawerOpen} setDrawer={this.setDrawer} currentISO2={this.state.currentyISO} setCurrentyCountry={this.setCurrentyCountry} />
             </div>
         )
     }
