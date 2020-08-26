@@ -1,0 +1,15 @@
+{
+    "short_name": "CovidApp",
+    "name": "CovidApp - COVID19 reporter",
+    "icons": [
+        {
+            "src": "/images/icon512World.png",
+            "type": "images/png",
+            "sizes": "512x512"
+        }
+    ],
+    "start_url": ".",
+    "display": "standalone",
+    "theme_color": "#000000",
+    "background_color": "#ffffff"
+}
