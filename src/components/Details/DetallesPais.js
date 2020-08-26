@@ -1,9 +1,12 @@
 import React from 'react'
-import { Drawer, Button, Card, Space, Typography, Row, Col, Skeleton } from 'antd'
+import { Drawer, Button, Card, Space, Typography, Row, Col, Skeleton, Divider, Badge, Statistic, } from 'antd'
 //import Moment from 'moment'
 import Axios from 'axios'
 import { Line } from '@ant-design/charts'
-const { Title } = Typography
+import Paragraph from 'antd/lib/skeleton/Paragraph'
+import LoadingSkeleton from '../Home/LoadingSkeleton'
+import { NotificationOutlined, EyeInvisibleOutlined, HeartOutlined } from '@ant-design/icons'
+const { Title, Text } = Typography
 
 
 export default class DetallesPais extends React.Component {
@@ -13,7 +16,8 @@ export default class DetallesPais extends React.Component {
         this.state = {
             isOpen: false,
             ISO2: this.props.currentISO2,
-            countryData: {}
+            countryData: {},
+            flag: ""
         }
         this.handleClickOpen = this.handleClickOpen.bind(this)
         this.handleClickClose = this.handleClickClose.bind(this)
@@ -22,19 +26,21 @@ export default class DetallesPais extends React.Component {
     }
 
     async getDataGlobal() {
-        const petition = "https://corona.lmao.ninja/v3/covid-19/countries/" + this.props.currentISO2
-        console.log(petition)
-        const responseData = await Axios.get(petition)
-            .then(function (response) {
-                return response
-            })
-            .catch(function (error) {
-                console.log(error);
-            })
-        if (responseData) {
-            this.setState({
-                countryData: responseData.data
-            })
+        if (this.props.currentISO2 !== "") {
+            const petition = "https://corona.lmao.ninja/v3/covid-19/countries/" + this.props.currentISO2
+            const responseData = await Axios.get(petition)
+                .then(function (response) {
+                    return response
+                })
+                .catch(function (error) {
+                    console.log(error);
+                })
+            if (responseData) {
+                this.setState({
+                    countryData: responseData.data,
+                    flag: responseData.data.countryInfo.flag
+                })
+            }
         }
     }
 
@@ -45,6 +51,10 @@ export default class DetallesPais extends React.Component {
     onClose() {
         this.props.setDrawer(false)
         this.props.setCurrentyCountry("")
+        this.setState({
+            countryData: {},
+            flag: ""
+        })
     }
 
     handleClickOpen() {
@@ -81,6 +91,7 @@ export default class DetallesPais extends React.Component {
     }
 
     render() {
+        const { countryInfo, country, cases } = this.state.countryData
         return (
             <div>
                 <Drawer
@@ -91,61 +102,172 @@ export default class DetallesPais extends React.Component {
                     closable={true}
                     onClose={this.onClose}
                     visible={this.props.stateOfDrawer}
-                    bodyStyle={{ background: '#8c8c8c' }}
+                    bodyStyle={{ background: '#262626' }}
                     footerStyle={{ textAlign: 'right' }}
                     footer={"Información actualizada a: "} //+ Moment(this.state.globalData.Date).format("MMMM D YYYY, h:mm a")}
                 >
                     <Row gutter={16}>
                         <Col span={24}>
-                            <Card>
-                                <p>
+                            <center>
+                                <Card>
                                     {
-                                        this.state.countryData === null
-                                            ? <Skeleton avatar paragraph={{ rows: 4 }} />
-                                            : <Space>
-                                                <img src={this.state.countryData.flag} alt="" style={{ width: '35px' }} />
-                                                <Title level={1}>{this.state.countryData.country}</Title>
+                                        this.state.flag
+                                            ? <div><Space>
+                                                <img src={this.state.flag} alt="" style={{ width: '100px', border: '2px black groove' }} />
+                                                <Title level={1} style={{ marginTop: '17px' }}>{this.state.countryData.country}</Title>
                                             </Space>
+                                                <br />
+                                                <br />
+                                                <Text strong>Latitud:</Text> <Text code style={{ marginRight: '10px' }}>{this.state.countryData.countryInfo.lat}</Text>
+                                                <Text strong>Longitud:</Text> <Text code>{this.state.countryData.countryInfo.long}</Text>
+                                            </div>
+                                            : <center>
+                                                <Skeleton avatar paragraph={{ rows: 3 }} style={{ width: '50%' }} />
+                                            </center>
                                     }
-                                </p>
-                            </Card>
+                                </Card>
+                            </center>
+                            <div className="container" style={{ backgroundColor: '#595959', padding: '20px' }}>
+                                <div className="row">
+                                    <Divider orientation="left"><Text style={{color: 'white'}}>Nuevos infomes</Text></Divider>
+                                    <div className="col-md" style={{ padding: '15px' }}>
+                                        <Badge.Ribbon text="Nuevos confirmados" color="#2f54eb" placement="start" >
+                                            <Card>
+                                                {
+                                                    this.state.flag
+                                                        ? <center>
+                                                            <Statistic
+                                                                value={this.state.countryData.todayCases}
+                                                                valueStyle={{ color: '#2f54eb' }}
+                                                                prefix={<NotificationOutlined />}
+                                                                suffix="personas"
+                                                                style={{ marginTop: '15px' }}
+                                                            /></center>
+                                                        : <div> <LoadingSkeleton /> </div>
+                                                }
+                                            </Card>
+                                        </Badge.Ribbon>
+                                    </div>
+                                    <div className="col-md" style={{ padding: '15px' }}>
+                                        <Badge.Ribbon text="Nuevos fallecidos" color="#f5222d" placement="start" >
+                                            <Card>
+                                                {
+                                                    this.state.flag
+                                                        ? <center>
+                                                            <Statistic
+                                                                value={this.state.countryData.todayDeaths}
+                                                                valueStyle={{ color: '#f5222d' }}
+                                                                prefix={<EyeInvisibleOutlined />}
+                                                                suffix="personas"
+                                                                style={{ marginTop: '15px' }}
+                                                            /></center>
+                                                        : <div> <LoadingSkeleton /> </div>
+                                                }
+                                            </Card>
+                                        </Badge.Ribbon>
+                                    </div>
+                                    <div className="col-md" style={{ padding: '15px' }}>
+                                        <Badge.Ribbon text="Nuevos recuperados" color="#52c41a" placement="start" >
+                                            <Card>
+                                                {
+                                                    this.state.flag
+                                                        ? <center>
+                                                            <Statistic
+                                                                value={this.state.countryData.todayRecovered}
+                                                                valueStyle={{ color: '#52c41a' }}
+                                                                prefix={<HeartOutlined />}
+                                                                suffix="personas"
+                                                                style={{ marginTop: '15px' }}
+                                                            /></center>
+                                                        : <div> <LoadingSkeleton /> </div>
+                                                }
+                                            </Card>
+                                        </Badge.Ribbon>
+                                    </div>
+                                </div>
+                                <Divider orientation="left"><Text style={{color: 'white'}}>Infomes totales</Text></Divider>
+                                <div className="row">
+                                    <div className="col-md" style={{ padding: '15px' }}>
+                                        <Badge.Ribbon text="Total confirmados" color="#10239e" placement="start" >
+                                            <Card>
+                                                {
+                                                    this.state.flag
+                                                        ? <center>
+                                                            <Statistic
+                                                                value={this.state.countryData.cases}
+                                                                valueStyle={{ color: '#10239e' }}
+                                                                prefix={<HeartOutlined />}
+                                                                suffix="personas"
+                                                                style={{ marginTop: '15px' }}
+                                                            /></center>
+                                                        : <div> <LoadingSkeleton /> </div>
+                                                }
+                                            </Card>
+                                        </Badge.Ribbon>
+                                    </div>
+                                    <div className="col-md" style={{ padding: '15px' }}>
+                                        <Badge.Ribbon text="Total fallecidos" color="#a8071a" placement="start" >
+                                            <Card>
+                                                {
+                                                    this.state.flag
+                                                        ? <center>
+                                                            <Statistic
+                                                                value={this.state.countryData.deaths}
+                                                                valueStyle={{ color: '#a8071a' }}
+                                                                prefix={<HeartOutlined />}
+                                                                suffix="personas"
+                                                                style={{ marginTop: '15px' }}
+                                                            /></center>
+                                                        : <div> <LoadingSkeleton /> </div>
+                                                }
+                                            </Card>
+                                        </Badge.Ribbon>
+                                    </div>
+                                    <div className="col-md" style={{ padding: '15px' }}>
+                                        <Badge.Ribbon text="Total recuperados" color="#237804" placement="start" >
+                                            <Card>
+                                                {
+                                                    this.state.flag
+                                                        ? <center>
+                                                            <Statistic
+                                                                value={this.state.countryData.recovered}
+                                                                valueStyle={{ color: '#237804' }}
+                                                                prefix={<HeartOutlined />}
+                                                                suffix="personas"
+                                                                style={{ marginTop: '15px' }}
+                                                            /></center>
+                                                        : <div> <LoadingSkeleton /> </div>
+                                                }
+                                            </Card>
+                                        </Badge.Ribbon>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="container" style={{ backgroundColor: '#8c8c8c', padding: '20px' }}>
+                                <div className="row">
+                                    <Divider orientation="left">Nuevos infomes</Divider>
+                                    <div className="col-md" style={{ padding: '15px' }}>
+                                        <Badge.Ribbon text="Nuevos confirmados" color="#2f54eb" placement="start" >
+                                            <Card>
+                                                {
+                                                    this.state.flag
+                                                        ? <center>
+                                                            <Statistic
+                                                                value={this.state.countryData.todayCases}
+                                                                valueStyle={{ color: '#2f54eb' }}
+                                                                prefix={<NotificationOutlined />}
+                                                                suffix="personas"
+                                                                style={{ marginTop: '15px' }}
+                                                            /></center>
+                                                        : <div> <LoadingSkeleton /> </div>
+                                                }
+                                            </Card>
+                                        </Badge.Ribbon>
+                                    </div>
+                                </div>
+                            </div>
                         </Col>
                     </Row>
-
-                    <div style={{ background: '#ffffff' }}>
-                        <p>
-                            {
-                                this.state.countryData.country === null
-                                    ? <p>Loading data</p>
-                                    : <p>{this.state.countryData.country}</p>
-                            }
-                        </p>
-                    </div>
-                    <Card title="Card title" bordered={true} style={{ width: 300 }} hoverable>
-                        <p>Card content</p>
-                        <p>Card content</p>
-                        <p>Card content</p>
-                    </Card>
-                    <Card title="Card title" bordered={true} style={{ width: 300 }} hoverable>
-                        <p>Card content</p>
-                        <p>Card content</p>
-                        <p>Card content</p>
-                    </Card>
-                    <Card title="Card title" bordered={true} style={{ width: 300 }} hoverable>
-                        <p>Card content</p>
-                        <p>Card content</p>
-                        <p>Card content</p>
-                    </Card>
-                    <Card title="Card title" bordered={true} style={{ width: 300 }} hoverable>
-                        <p>Card content</p>
-                        <p>Card content</p>
-                        <p>Card content</p>
-                    </Card>
-                    <Card title="Card title" bordered={true} style={{ width: 300 }} hoverable>
-                        <p>Card content</p>
-                        <p>Card content</p>
-                        <p>Card content</p>
-                    </Card>
                 </Drawer>
             </div>
         )
