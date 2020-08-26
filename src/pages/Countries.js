@@ -27,18 +27,12 @@ export default class Countries extends React.Component {
     setCurrentyCountry(iso2) {
         this.setState({
             currentyISO: iso2
-        }, function () {
-            console.log("alguien uso setCountry")
-            console.log("en countries iso2 esta en: " + this.state.currentyISO)
         })
     }
 
     setDrawer = (state) => {
         this.setState({
             drawerOpen: state
-        }, function () {
-            console.log("alguien uso setDrawer")
-            console.log("en countries isOpen esta en: " + this.state.drawerOpen)
         })
 
     }

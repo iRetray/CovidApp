@@ -1,5 +1,5 @@
 import React from 'react'
-import { Navbar, NavbarBrand, Nav, NavbarText } from 'reactstrap'
+import { Navbar, Nav, NavbarText } from 'reactstrap'
 import { Typography } from 'antd'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMapMarkedAlt, faShieldVirus } from '@fortawesome/free-solid-svg-icons'
