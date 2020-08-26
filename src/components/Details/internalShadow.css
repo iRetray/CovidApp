@@ -1,0 +1,17 @@
+.downShadow {
+    -webkit-box-shadow: inset 10px -25px 30px -25px rgba(0, 0, 0, 0.69);
+    -moz-box-shadow: inset 10px -25px 30px -25px rgba(0, 0, 0, 0.69);
+    box-shadow: inset 10px -25px 30px -25px rgba(0, 0, 0, 0.69);
+}
+
+.upShadow {
+    -webkit-box-shadow: inset 10px 25px 30px -25px rgba(0, 0, 0, 0.69);
+    -moz-box-shadow: inset 10px 25px 30px -25px rgba(0, 0, 0, 0.69);
+    box-shadow: inset 10px 25px 30px -25px rgba(0, 0, 0, 0.69);
+}
+
+.externalShadow {
+    -webkit-box-shadow: 0px 0px 38px 2px rgba(0, 0, 0, 0.5);
+    -moz-box-shadow: 0px 0px 38px 2px rgba(0, 0, 0, 0.5);
+    box-shadow: 0px 0px 38px 2px rgba(0, 0, 0, 0.5);
+}

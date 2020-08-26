@@ -1,11 +1,12 @@
 import React from 'react'
 import { Drawer, Button, Card, Space, Typography, Row, Col, Skeleton, Divider, Badge, Statistic, } from 'antd'
-//import Moment from 'moment'
+import Moment from 'moment'
 import Axios from 'axios'
 import { Line } from '@ant-design/charts'
 import Paragraph from 'antd/lib/skeleton/Paragraph'
 import LoadingSkeleton from '../Home/LoadingSkeleton'
-import { NotificationOutlined, EyeInvisibleOutlined, HeartOutlined } from '@ant-design/icons'
+import { NotificationOutlined, EyeInvisibleOutlined, HeartOutlined, FrownOutlined, PoweroffOutlined, MedicineBoxOutlined, SolutionOutlined, TeamOutlined, RadarChartOutlined } from '@ant-design/icons'
+import './internalShadow.css'
 const { Title, Text } = Typography
 
 
@@ -104,7 +105,7 @@ export default class DetallesPais extends React.Component {
                     visible={this.props.stateOfDrawer}
                     bodyStyle={{ background: '#262626' }}
                     footerStyle={{ textAlign: 'right' }}
-                    footer={"Información actualizada a: "} //+ Moment(this.state.globalData.Date).format("MMMM D YYYY, h:mm a")}
+                    footer={"Información actualizada a: "+ Moment(this.state.countryData.updated).format("MMMM D YYYY, h:mm a")}
                 >
                     <Row gutter={16}>
                         <Col span={24}>
@@ -116,8 +117,9 @@ export default class DetallesPais extends React.Component {
                                                 <img src={this.state.flag} alt="" style={{ width: '100px', border: '2px black groove' }} />
                                                 <Title level={1} style={{ marginTop: '17px' }}>{this.state.countryData.country}</Title>
                                             </Space>
-                                                <br />
-                                                <br />
+                                                <hr />
+                                                <Text strong><RadarChartOutlined /> Continente:</Text> <Text code>{this.state.countryData.continent}</Text> <br />
+                                                <Text strong><TeamOutlined /> Población:</Text> <Text code>{Number(this.state.countryData.population).toLocaleString('en')}</Text> <br />
                                                 <Text strong>Latitud:</Text> <Text code style={{ marginRight: '10px' }}>{this.state.countryData.countryInfo.lat}</Text>
                                                 <Text strong>Longitud:</Text> <Text code>{this.state.countryData.countryInfo.long}</Text>
                                             </div>
@@ -127,9 +129,9 @@ export default class DetallesPais extends React.Component {
                                     }
                                 </Card>
                             </center>
-                            <div className="container" style={{ backgroundColor: '#595959', padding: '20px' }}>
+                            <div className="container upShadow" style={{ backgroundColor: '#595959', padding: '20px' }}>
                                 <div className="row">
-                                    <Divider orientation="left"><Text style={{color: 'white'}}>Nuevos infomes</Text></Divider>
+                                    <Divider orientation="left"><Text style={{ color: 'white' }}>Nuevos infomes</Text></Divider>
                                     <div className="col-md" style={{ padding: '15px' }}>
                                         <Badge.Ribbon text="Nuevos confirmados" color="#2f54eb" placement="start" >
                                             <Card>
@@ -185,7 +187,7 @@ export default class DetallesPais extends React.Component {
                                         </Badge.Ribbon>
                                     </div>
                                 </div>
-                                <Divider orientation="left"><Text style={{color: 'white'}}>Infomes totales</Text></Divider>
+                                <Divider orientation="left"><Text style={{ color: 'white' }}>Infomes totales</Text></Divider>
                                 <div className="row">
                                     <div className="col-md" style={{ padding: '15px' }}>
                                         <Badge.Ribbon text="Total confirmados" color="#10239e" placement="start" >
@@ -196,7 +198,7 @@ export default class DetallesPais extends React.Component {
                                                             <Statistic
                                                                 value={this.state.countryData.cases}
                                                                 valueStyle={{ color: '#10239e' }}
-                                                                prefix={<HeartOutlined />}
+                                                                prefix={<NotificationOutlined />}
                                                                 suffix="personas"
                                                                 style={{ marginTop: '15px' }}
                                                             /></center>
@@ -214,7 +216,7 @@ export default class DetallesPais extends React.Component {
                                                             <Statistic
                                                                 value={this.state.countryData.deaths}
                                                                 valueStyle={{ color: '#a8071a' }}
-                                                                prefix={<HeartOutlined />}
+                                                                prefix={<EyeInvisibleOutlined />}
                                                                 suffix="personas"
                                                                 style={{ marginTop: '15px' }}
                                                             /></center>
@@ -243,19 +245,75 @@ export default class DetallesPais extends React.Component {
                                     </div>
                                 </div>
                             </div>
-                            <div className="container" style={{ backgroundColor: '#8c8c8c', padding: '20px' }}>
+                            <div className="container upShadow" style={{ backgroundColor: '#8c8c8c', padding: '20px' }}>
+                                <Divider orientation="left"><Text style={{ color: 'white' }}>Información adicional</Text></Divider>
                                 <div className="row">
-                                    <Divider orientation="left">Nuevos infomes</Divider>
                                     <div className="col-md" style={{ padding: '15px' }}>
-                                        <Badge.Ribbon text="Nuevos confirmados" color="#2f54eb" placement="start" >
+                                        <Badge.Ribbon text="Casos activos" color="#08979c" placement="start" >
                                             <Card>
                                                 {
                                                     this.state.flag
                                                         ? <center>
                                                             <Statistic
-                                                                value={this.state.countryData.todayCases}
-                                                                valueStyle={{ color: '#2f54eb' }}
-                                                                prefix={<NotificationOutlined />}
+                                                                value={this.state.countryData.active}
+                                                                valueStyle={{ color: '#08979c' }}
+                                                                prefix={<FrownOutlined />}
+                                                                suffix="personas"
+                                                                style={{ marginTop: '15px' }}
+                                                            /></center>
+                                                        : <div> <LoadingSkeleton /> </div>
+                                                }
+                                            </Card>
+                                        </Badge.Ribbon>
+                                    </div>
+                                    <div className="col-md" style={{ padding: '15px' }}>
+                                        <Badge.Ribbon text="Casos críticos" color="#a8071a" placement="start" >
+                                            <Card>
+                                                {
+                                                    this.state.flag
+                                                        ? <center>
+                                                            <Statistic
+                                                                value={this.state.countryData.critical}
+                                                                valueStyle={{ color: '#a8071a' }}
+                                                                prefix={<PoweroffOutlined />}
+                                                                suffix="personas"
+                                                                style={{ marginTop: '15px' }}
+                                                            /></center>
+                                                        : <div> <LoadingSkeleton /> </div>
+                                                }
+                                            </Card>
+                                        </Badge.Ribbon>
+                                    </div>
+                                </div>
+                                <div className="row">
+                                    <div className="col-md" style={{ padding: '15px' }}>
+                                        <Badge.Ribbon text="Pruebas aplicadas" color="#096dd9" placement="start" >
+                                            <Card>
+                                                {
+                                                    this.state.flag
+                                                        ? <center>
+                                                            <Statistic
+                                                                value={this.state.countryData.tests}
+                                                                valueStyle={{ color: '#096dd9' }}
+                                                                prefix={<MedicineBoxOutlined />}
+                                                                suffix="pruebas"
+                                                                style={{ marginTop: '15px' }}
+                                                            /></center>
+                                                        : <div> <LoadingSkeleton /> </div>
+                                                }
+                                            </Card>
+                                        </Badge.Ribbon>
+                                    </div>
+                                    <div className="col-md" style={{ padding: '15px' }}>
+                                        <Badge.Ribbon text="Casos por millón" color="#c41d7f" placement="start" >
+                                            <Card>
+                                                {
+                                                    this.state.flag
+                                                        ? <center>
+                                                            <Statistic
+                                                                value={this.state.countryData.casesPerOneMillion}
+                                                                valueStyle={{ color: '#c41d7f' }}
+                                                                prefix={<SolutionOutlined />}
                                                                 suffix="personas"
                                                                 style={{ marginTop: '15px' }}
                                                             /></center>
