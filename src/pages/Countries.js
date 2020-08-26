@@ -4,7 +4,7 @@ import Axios from 'axios';
 import Interfaz from '../components/Countries/Interfaz';
 import DetallesPais from '../components/Details/DetallesPais'
 
-const keyAPI = "AIzaSyBDaeWicvigtP9xPv919E-RNoxfvC-Hqik";
+const keyAPI = "AIzaSyCkHkmxH-eM7nPg2mZLm9XN51joGJgOsfs";
 const mapURL = `https://maps.googleapis.com/maps/api/js?key=` + keyAPI;
 
 export default class Countries extends React.Component {
