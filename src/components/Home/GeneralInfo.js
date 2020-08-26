@@ -46,14 +46,14 @@ export default class GeneralInfo extends React.Component {
                 <div className="row">
                     <Divider orientation="left"><Text type="secondary">Nuevos informes</Text></Divider>
                     <div className="col-md" style={{ padding: '15px' }}>
-                        <Badge.Ribbon text="Nuevos confirmados" color="#52c41a" placement="start" >
+                        <Badge.Ribbon text="Nuevos confirmados" color="#2f54eb" placement="start" >
                             <Card>
                                 {
                                     this.state.generalData.NewConfirmed
                                         ? <center>
                                             <Statistic
                                             value={this.state.generalData.NewConfirmed}
-                                            valueStyle={{ color: '#52c41a' }}
+                                            valueStyle={{ color: '#2f54eb' }}
                                             prefix={<NotificationOutlined />}
                                             suffix="personas"
                                             style={{ marginTop: '15px' }}
@@ -82,14 +82,14 @@ export default class GeneralInfo extends React.Component {
                         </Badge.Ribbon>
                     </div>
                     <div className="col-md" style={{ padding: '15px' }}>
-                        <Badge.Ribbon text="Nuevos recuperados" color="#2f54eb" placement="start" >
+                        <Badge.Ribbon text="Nuevos recuperados" color="#52c41a" placement="start" >
                             <Card>
                                 {
                                     this.state.generalData.NewConfirmed
                                         ? <center>
                                             <Statistic
                                             value={this.state.generalData.NewRecovered}
-                                            valueStyle={{ color: '#2f54eb' }}
+                                            valueStyle={{ color: '#52c41a' }}
                                             prefix={<HeartOutlined />}
                                             suffix="personas"
                                             style={{ marginTop: '15px' }}
@@ -103,14 +103,14 @@ export default class GeneralInfo extends React.Component {
                 <div className="row">
                     <Divider orientation="left"><Text type="secondary">Informes totales</Text></Divider>
                     <div className="col-md" style={{ padding: '15px' }}>
-                        <Badge.Ribbon text="Total confirmados" color="#237804" placement="start" >
+                        <Badge.Ribbon text="Total confirmados" color="#10239e" placement="start" >
                             <Card>
                                 {
                                     this.state.generalData.NewConfirmed
                                         ? <center>
                                             <Statistic
                                             value={this.state.generalData.TotalConfirmed}
-                                            valueStyle={{ color: '#237804' }}
+                                            valueStyle={{ color: '#10239e' }}
                                             prefix={<NotificationOutlined />}
                                             suffix="personas"
                                             style={{ marginTop: '15px' }}
@@ -139,14 +139,14 @@ export default class GeneralInfo extends React.Component {
                         </Badge.Ribbon>
                     </div>
                     <div className="col-md" style={{ padding: '15px' }}>
-                        <Badge.Ribbon text="Total recuperados" color="#10239e" placement="start" >
+                        <Badge.Ribbon text="Total recuperados" color="#237804" placement="start" >
                             <Card>
                                 {
                                     this.state.generalData.NewConfirmed
                                         ? <center>
                                             <Statistic
                                                 value={this.state.generalData.TotalRecovered}
-                                                valueStyle={{ color: '#10239e' }}
+                                                valueStyle={{ color: '#237804' }}
                                                 prefix={<HeartOutlined />}
                                                 suffix="personas"
                                                 style={{ marginTop: '15px' }}

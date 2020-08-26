@@ -2,6 +2,7 @@ import React from 'react';
 import Map from '../components/Countries/Map';
 import Axios from 'axios';
 import Interfaz from '../components/Countries/Interfaz';
+import DetallesPais from '../components/Details/DetallesPais'
 
 const keyAPI = "AIzaSyBDaeWicvigtP9xPv919E-RNoxfvC-Hqik";
 const mapURL = `https://maps.googleapis.com/maps/api/js?key=` + keyAPI;
@@ -14,22 +15,37 @@ export default class Countries extends React.Component {
             results: [],
             latitudUsuario: 0.0,
             longitudUsuario: 0.0,
+            currentyISO: "",
+            drawerOpen: false
         }
         this.getDataGlobal = this.getDataGlobal.bind(this)
         this.getLocation = this.getLocation.bind(this)
+        this.setCurrentyCountry = this.setCurrentyCountry.bind(this)
+        this.setDrawer = this.setDrawer.bind(this)
     }
 
-    /**
-     * Pasar lo de countries a map con el fin de crear un constructor que tenga las variables latitud, longitud,
-     * zoom, que tendran los valores defaults, si accepta localizacicon, deben cambiarse los valores por los
-     * que arroje la pagina, y el zoom al 7, de lo contrario usar valores base
-     * -------------------------------------------------------------------------------------
-     */
+    setCurrentyCountry(iso2) {
+        this.setState({
+            currentyISO: iso2
+        }, function () {
+            console.log("alguien uso setCountry")
+            console.log("en countries iso2 esta en: " + this.state.currentyISO)
+        })
+    }
 
+    setDrawer = (state) => {
+        this.setState({
+            drawerOpen: state
+        }, function () {
+            console.log("alguien uso setDrawer")
+            console.log("en countries isOpen esta en: " + this.state.drawerOpen)
+        })
+
+    }
 
     getLocation() {
         if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition( (position) => {
+            navigator.geolocation.getCurrentPosition((position) => {
                 this.setState({
                     latitudUsuario: position.coords.latitude,
                     longitudUsuario: position.coords.longitude
@@ -73,8 +89,11 @@ export default class Countries extends React.Component {
                     markersData={this.state.results}
                     latitudUsuario={this.state.latitudUsuario}
                     longitudUsuario={this.state.longitudUsuario}
+                    setCurrentyCountry={this.setCurrentyCountry}
+                    setDrawer={this.setDrawer}
                 >
                 </Map>
+                <DetallesPais stateOfDrawer={this.state.drawerOpen} setDrawer={this.setDrawer} currentISO2={this.state.currentyISO} setCurrentyCountry={this.setCurrentyCountry} />
             </div>
         )
     }
