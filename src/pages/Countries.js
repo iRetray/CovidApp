@@ -79,7 +79,7 @@ export default class Countries extends React.Component {
                     googleMapURL={mapURL}
                     loadingElement={<div style={{ height: `100vh` }} />}
                     containerElement={<div style={{ height: `90vh` }} />}
-                    mapElement={<div style={{ height: `94.1vh` }} />}
+                    mapElement={<div style={{ height: window.innerHeight > 900 ? `94.3vh` : `92.5vh` }} />}
                     markersData={this.state.results}
                     latitudUsuario={this.state.latitudUsuario}
                     longitudUsuario={this.state.longitudUsuario}
