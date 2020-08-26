@@ -1,9 +1,7 @@
 import React from 'react'
-import { Drawer, Button, Card, Space, Typography, Row, Col, Skeleton, Divider, Badge, Statistic, } from 'antd'
+import { Drawer, Card, Space, Typography, Row, Col, Skeleton, Divider, Badge, Statistic, } from 'antd'
 import Moment from 'moment'
 import Axios from 'axios'
-import { Line } from '@ant-design/charts'
-import Paragraph from 'antd/lib/skeleton/Paragraph'
 import LoadingSkeleton from '../Home/LoadingSkeleton'
 import { NotificationOutlined, EyeInvisibleOutlined, HeartOutlined, FrownOutlined, PoweroffOutlined, MedicineBoxOutlined, SolutionOutlined, TeamOutlined, RadarChartOutlined } from '@ant-design/icons'
 import './internalShadow.css'
@@ -92,7 +90,6 @@ export default class DetallesPais extends React.Component {
     }
 
     render() {
-        const { countryInfo, country, cases } = this.state.countryData
         return (
             <div>
                 <Drawer
