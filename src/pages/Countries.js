@@ -33,8 +33,9 @@ export default class Countries extends React.Component {
     setDrawer = (state) => {
         this.setState({
             drawerOpen: state
+        }, function() {
+            console.log("se establecio el drawer en "+this.state.drawerOpen)
         })
-
     }
 
     getLocation() {

@@ -16,7 +16,8 @@ export default class DetallesPais extends React.Component {
             isOpen: false,
             ISO2: this.props.currentISO2,
             countryData: {},
-            flag: ""
+            flag: "",
+            requestCompleted: false
         }
         this.handleClickOpen = this.handleClickOpen.bind(this)
         this.handleClickClose = this.handleClickClose.bind(this)
@@ -40,6 +41,7 @@ export default class DetallesPais extends React.Component {
                     flag: responseData.data.countryInfo.flag
                 })
             }
+            console.log("ejecutada la consulta de details")
         }
     }
 
@@ -52,8 +54,10 @@ export default class DetallesPais extends React.Component {
         this.props.setCurrentyCountry("")
         this.setState({
             countryData: {},
-            flag: ""
+            flag: "",
+            requestCompleted: true
         })
+        console.log("drawer cerrado")
     }
 
     handleClickOpen() {
@@ -74,8 +78,7 @@ export default class DetallesPais extends React.Component {
     componentWillReceiveProps(nextProps) {
         if (nextProps !== this.props.isOpen) {
             this.setState({
-                isOpen: nextProps.isOpen,
-                ISO2: nextProps.ISO2
+                isOpen: nextProps.isOpen
             })
         }
         if (nextProps !== this.props.ISO2) {
