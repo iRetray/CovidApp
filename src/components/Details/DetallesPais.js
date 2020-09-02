@@ -26,7 +26,7 @@ export default class DetallesPais extends React.Component {
     }
 
     async getDataGlobal() {
-        if (this.props.currentISO2 !== "") {
+        if (this.props.currentISO2 !== "" && !this.state.requestCompleted) {
             const petition = "https://corona.lmao.ninja/v3/covid-19/countries/" + this.props.currentISO2
             const responseData = await Axios.get(petition)
                 .then(function (response) {
@@ -38,10 +38,10 @@ export default class DetallesPais extends React.Component {
             if (responseData) {
                 this.setState({
                     countryData: responseData.data,
-                    flag: responseData.data.countryInfo.flag
+                    flag: responseData.data.countryInfo.flag,
+                    requestCompleted: true
                 })
             }
-            console.log("ejecutada la consulta de details")
         }
     }
 
@@ -55,9 +55,8 @@ export default class DetallesPais extends React.Component {
         this.setState({
             countryData: {},
             flag: "",
-            requestCompleted: true
+            requestCompleted: false
         })
-        console.log("drawer cerrado")
     }
 
     handleClickOpen() {
@@ -89,7 +88,7 @@ export default class DetallesPais extends React.Component {
     }
 
     componentDidUpdate() {
-        setTimeout(() => this.getDataGlobal(), 2000)
+        this.getDataGlobal()
     }
 
     render() {
