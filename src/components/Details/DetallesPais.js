@@ -16,7 +16,8 @@ export default class DetallesPais extends React.Component {
             isOpen: false,
             ISO2: this.props.currentISO2,
             countryData: {},
-            flag: ""
+            flag: "",
+            requestCompleted: false
         }
         this.handleClickOpen = this.handleClickOpen.bind(this)
         this.handleClickClose = this.handleClickClose.bind(this)
@@ -25,7 +26,7 @@ export default class DetallesPais extends React.Component {
     }
 
     async getDataGlobal() {
-        if (this.props.currentISO2 !== "") {
+        if (this.props.currentISO2 !== "" && !this.state.requestCompleted) {
             const petition = "https://corona.lmao.ninja/v3/covid-19/countries/" + this.props.currentISO2
             const responseData = await Axios.get(petition)
                 .then(function (response) {
@@ -37,7 +38,8 @@ export default class DetallesPais extends React.Component {
             if (responseData) {
                 this.setState({
                     countryData: responseData.data,
-                    flag: responseData.data.countryInfo.flag
+                    flag: responseData.data.countryInfo.flag,
+                    requestCompleted: true
                 })
             }
         }
@@ -52,7 +54,8 @@ export default class DetallesPais extends React.Component {
         this.props.setCurrentyCountry("")
         this.setState({
             countryData: {},
-            flag: ""
+            flag: "",
+            requestCompleted: false
         })
     }
 
@@ -74,8 +77,7 @@ export default class DetallesPais extends React.Component {
     componentWillReceiveProps(nextProps) {
         if (nextProps !== this.props.isOpen) {
             this.setState({
-                isOpen: nextProps.isOpen,
-                ISO2: nextProps.ISO2
+                isOpen: nextProps.isOpen
             })
         }
         if (nextProps !== this.props.ISO2) {
@@ -86,7 +88,7 @@ export default class DetallesPais extends React.Component {
     }
 
     componentDidUpdate() {
-        setTimeout(() => this.getDataGlobal(), 2000)
+        this.getDataGlobal()
     }
 
     render() {
