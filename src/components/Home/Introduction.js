@@ -1,7 +1,7 @@
 import React from 'react'
 import { Typography, Divider, Button, Badge } from 'antd'
 import { PlayCircleTwoTone } from '@ant-design/icons'
-import covidImage from '../../images/homeImage.jpg'
+import covidImage from '../../images/homeImage.webp'
 import Axios from 'axios'
 import { Link } from 'react-router-dom'
 const { Title, Paragraph, Text } = Typography
